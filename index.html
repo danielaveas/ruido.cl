@@ -178,24 +178,40 @@
             <div class="w-3 h-3 bg-ruido-green rounded-full animate-pulse-fast"></div>
         </div>
     </footer>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
   // 1. Dile a JS el nombre EXACTO del archivo que creó Sveltia (revisa en tu GitHub cómo se llama)
   // Por lo general tienen fechas al inicio, por ejemplo: "noticias/2026-07-14-primer-despacho.md"
   const rutaDelArchivo = "https://raw.githubusercontent.com/danielaveas/ruido.cl/refs/heads/main/noticias/himpathy-el-deporte-nacional-de-proteger-al-poder.md";
   // 2. El mensajero va a buscar el archivo
   fetch(rutaDelArchivo)
-    .then(respuesta => respuesta.text()) // Abre el sobre y saca el texto
-    .then(textoMarkdown => {
+    fetch(rutaDelArchivo)
+  .then(respuesta => respuesta.text())
+  .then(textoCrudo => {
+    
+    // 1. La Tijera Virtual: Cortamos el texto cada vez que haya '---'
+    const partes = textoCrudo.split('---');
+    
+    // 2. Verificamos que el corte haya funcionado (separando frontmatter del texto)
+    if (partes.length >= 3) {
       
-      // 3. El traductor convierte el Markdown a HTML
+      // partes[1] contiene los datos técnicos (los ignoramos visualmente por ahora)
+      // partes[2] contiene tu reportaje real. Lo guardamos:
+      const textoMarkdown = partes.slice(2).join('---'); 
+      
+      // 3. El traductor hace su magia solo con el reportaje limpio
       const htmlListo = marked.parse(textoMarkdown);
       
-      // 4. Buscamos la vitrina en tu página y pegamos el resultado
+      // 4. Inyectamos el texto limpio en tu vitrina
       document.getElementById("noticia-principal").innerHTML = htmlListo;
       
-    })
-    .catch(error => console.log("Ups, no se encontró la noticia:", error));
+    } else {
+      console.log("El archivo no tiene el formato esperado.");
+    }
+    
+  })
+  .catch(error => console.log("Ups, no se encontró la noticia:", error));
 </script>
 </body>
 </html>
