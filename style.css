@@ -2,8 +2,47 @@
    RUIDO.cl - Estilos Personalizados 
    Estética Hyper Pop / Brat / Brutalista
    ========================================= */
+/* =========================================
+   BARRA DE NAVEGACIÓN PRINCIPAL
+   ========================================= */
 
-/* 1. Importación de Fuentes (Space Grotesk y JetBrains Mono) */
+.navegacion-principal {
+  display: flex;
+  justify-content: space-between; /* Separa el logo de los links */
+  align-items: center;
+  border-bottom: 3px solid #333;
+  padding: 20px 40px;
+  background-color: #050505;
+  margin-bottom: 40px;
+}
+
+.navegacion-principal a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 10px 15px;
+  transition: all 0.2s ease;
+}
+
+/* El estado de la página actual y el hover */
+.navegacion-principal a.activo, 
+.navegacion-principal a:hover {
+  background-color: #00ff00;
+  color: #000000;
+}
+
+/* Agrupando los links de la derecha */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+
+
+   /* 1. Importación de Fuentes (Space Grotesk y JetBrains Mono) */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@400;600;700&display=swap');
 
 /* 2. Variables nativas de CSS (por si necesitas usarlas fuera de Tailwind) */
@@ -238,4 +277,63 @@ a {
   .flecha {
     display: none;
   }
+}
+
+/* =========================================
+   DISEÑO PARA LA PLANTILLA DE LECTURA
+   ========================================= */
+
+.contenedor-lectura {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.boton-volver {
+  display: inline-block;
+  margin-bottom: 3rem;
+  color: #00ff00;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: 2px solid #00ff00;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.boton-volver:hover {
+  background-color: #00ff00;
+  color: #000000;
+}
+
+/* Tipografía del artículo inyectado */
+#noticia-principal h1 {
+  color: #00ff00;
+  font-size: 3rem;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  letter-spacing: -1px;
+}
+
+#noticia-principal h2 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+}
+
+#noticia-principal p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #cccccc;
+  margin-bottom: 1.5rem;
+}
+
+#noticia-principal strong {
+  color: #00ff00;
 }
