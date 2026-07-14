@@ -1,26 +1,133 @@
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script>
-  // 1. Atrapamos el "mensaje secreto" que viene en el enlace web
-  const parametros = new URLSearchParams(window.location.search);
-  const nombreDelArchivo = parametros.get("archivo");
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lectura | RUIDO</title>
+  <style>
+    body {
+      background-color: #050505;
+      color: #e0e0e0;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 50px 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-  // 2. Si hay un archivo en el enlace, lo vamos a buscar a GitHub
-  if (nombreDelArchivo) {
-    const rutaDelArchivo = "https://raw.githubusercontent.com/danielaveas/ruido.cl/main/noticias/" + nombreDelArchivo;
+    /* Botón para volver */
+    .volver {
+      display: inline-block;
+      color: #00ff00;
+      text-decoration: none;
+      border: 2px solid #00ff00;
+      padding: 10px 20px;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
 
-    fetch(rutaDelArchivo)
-      .then(respuesta => respuesta.text())
-      .then(textoCrudo => {
-        const partes = textoCrudo.split('---');
-        if (partes.length >= 3) {
-          const textoMarkdown = partes.slice(2).join('---'); 
-          const htmlListo = marked.parse(textoMarkdown);
-          document.getElementById("noticia-principal").innerHTML = htmlListo;
-        }
-      })
-      .catch(error => console.log("Error cargando la nota:", error));
-  } else {
-    // Si alguien entra a leer.html sin hacer clic en una noticia
-    document.getElementById("noticia-principal").innerHTML = "<h2>No se seleccionó ningún artículo.</h2>";
-  }
-</script>
+    .volver:hover {
+      background-color: #00ff00;
+      color: #000000;
+    }
+
+    /* Contenedor del artículo */
+    #noticia-principal {
+      border: 3px solid #222;
+      padding: 40px;
+      background-color: #0a0a0a;
+    }
+
+    /* Traduciendo el Markdown a estilos brutales */
+    #noticia-principal h1 {
+      color: #00ff00;
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      margin-top: 0;
+      margin-bottom: 25px;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    #noticia-principal h2 {
+      color: #ffffff;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      border-bottom: 2px solid #00ff00;
+      padding-bottom: 5px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    #noticia-principal p {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #cccccc;
+      margin-bottom: 20px;
+    }
+
+    /* Las negritas se tiñen de verde flúor automáticamente */
+    #noticia-principal strong {
+      color: #00ff00; 
+    }
+
+    #noticia-principal hr {
+      border: 0;
+      border-top: 3px double #333;
+      margin: 40px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="conceptos.html" class="volver">← Volver a Conceptos</a>
+
+  <div id="noticia-principal">
+    <h2>Cargando artículo...</h2>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <script>
+    const parametros = new URLSearchParams(window.location.search);
+    const nombreDelArchivo = parametros.get("archivo");
+
+    if (nombreDelArchivo) {
+      const rutaDelArchivo = "https://raw.githubusercontent.com/danielaveas/ruido.cl/main/noticias/" + nombreDelArchivo;
+
+      fetch(rutaDelArchivo)
+        .then(respuesta => {
+          if (!respuesta.ok) {
+            throw new Error("No se encontró el archivo en GitHub.");
+          }
+          return respuesta.text();
+        })
+        .then(textoCrudo => {
+          // Recortamos los metadatos técnicos (frontmatter)
+          const partes = textoCrudo.split('---');
+          if (partes.length >= 3) {
+            const textoMarkdown = partes.slice(2).join('---'); 
+            const htmlListo = marked.parse(textoMarkdown);
+            document.getElementById("noticia-principal").innerHTML = htmlListo;
+          } else {
+            const htmlListo = marked.parse(textoCrudo);
+            document.getElementById("noticia-principal").innerHTML = htmlListo;
+          }
+        })
+        .catch(error => {
+          document.getElementById("noticia-principal").innerHTML = `
+            <h2 style="color: #ff0055;">ERROR 404</h2>
+            <p>No logramos recuperar el artículo desde GitHub.</p>
+            <p style="font-size: 0.9rem; color: #666;">Código: ${error.message}</p>
+          `;
+        });
+    } else {
+      document.getElementById("noticia-principal").innerHTML = "<h2>No se seleccionó ningún artículo.</h2>";
+    }
+  </script>
+
+</body>
+</html>
