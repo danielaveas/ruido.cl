@@ -95,6 +95,10 @@
                 <p class="text-2xl font-mono text-gray-500 border-l-4 border-ruido-pink pl-6">El "Fondo" del Ruido.</p>
             </div>
 
+            <div id="noticia-principal">
+  <!-- Aquí aparecerá la magia de JavaScript -->
+</div>
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Tarjeta 1 -->
                 <article class="bg-ruido-card p-8 border border-zinc-800 hover:border-ruido-green group transition-colors duration-300 relative overflow-hidden">
@@ -174,6 +178,25 @@
             <div class="w-3 h-3 bg-ruido-green rounded-full animate-pulse-fast"></div>
         </div>
     </footer>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  // 1. Dile a JS el nombre EXACTO del archivo que creó Sveltia (revisa en tu GitHub cómo se llama)
+  // Por lo general tienen fechas al inicio, por ejemplo: "noticias/2026-07-14-primer-despacho.md"
+  const rutaDelArchivo = "noticias/himpathy-el-deporte-nacional-de-proteger-al-poder.md";
 
+  // 2. El mensajero va a buscar el archivo
+  fetch(rutaDelArchivo)
+    .then(respuesta => respuesta.text()) // Abre el sobre y saca el texto
+    .then(textoMarkdown => {
+      
+      // 3. El traductor convierte el Markdown a HTML
+      const htmlListo = marked.parse(textoMarkdown);
+      
+      // 4. Buscamos la vitrina en tu página y pegamos el resultado
+      document.getElementById("noticia-principal").innerHTML = htmlListo;
+      
+    })
+    .catch(error => console.log("Ups, no se encontró la noticia:", error));
+</script>
 </body>
 </html>
