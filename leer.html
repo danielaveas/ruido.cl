@@ -1,0 +1,26 @@
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  // 1. Atrapamos el "mensaje secreto" que viene en el enlace web
+  const parametros = new URLSearchParams(window.location.search);
+  const nombreDelArchivo = parametros.get("archivo");
+
+  // 2. Si hay un archivo en el enlace, lo vamos a buscar a GitHub
+  if (nombreDelArchivo) {
+    const rutaDelArchivo = "https://raw.githubusercontent.com/danielaveas/ruido.cl/main/noticias/" + nombreDelArchivo;
+
+    fetch(rutaDelArchivo)
+      .then(respuesta => respuesta.text())
+      .then(textoCrudo => {
+        const partes = textoCrudo.split('---');
+        if (partes.length >= 3) {
+          const textoMarkdown = partes.slice(2).join('---'); 
+          const htmlListo = marked.parse(textoMarkdown);
+          document.getElementById("noticia-principal").innerHTML = htmlListo;
+        }
+      })
+      .catch(error => console.log("Error cargando la nota:", error));
+  } else {
+    // Si alguien entra a leer.html sin hacer clic en una noticia
+    document.getElementById("noticia-principal").innerHTML = "<h2>No se seleccionó ningún artículo.</h2>";
+  }
+</script>

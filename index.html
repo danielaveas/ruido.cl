@@ -55,6 +55,7 @@
                 <a href="disenos.html" class="text-gray-400 hover:text-ruido-pink transition-colors">Mis Diseños</a>
                 <a href="quienes-somos.html" class="text-gray-400 hover:text-ruido-pink transition-colors">Quiénes Somos</a>
                 <a href="actualidad.html" class="text-gray-400 hover:text-ruido-pink transition-colors">Actualidad</a>
+                <a href="conceptos.html" class="text-gray-400 hover:text-ruido-pink transition-colors">Conceptos</a>
 
             </nav>
         </div>
@@ -95,43 +96,6 @@
                 <p class="text-2xl font-mono text-gray-500 border-l-4 border-ruido-pink pl-6">El "Fondo" del Ruido.</p>
             </div>
 
-            <div id="noticia-principal">
-  <!-- Aquí aparecerá la magia de JavaScript -->
-</div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Tarjeta 1 -->
-                <article class="bg-ruido-card p-8 border border-zinc-800 hover:border-ruido-green group transition-colors duration-300 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-ruido-green/10 rounded-bl-full group-hover:bg-ruido-green/20 transition-colors"></div>
-                    <div class="text-ruido-green font-mono text-sm mb-6 font-bold tracking-widest">01 // ESTRUCTURA</div>
-                    <h3 class="text-2xl font-bold mb-4">Enfoque Estructural</h3>
-                    <p class="text-gray-400 leading-relaxed font-mono text-sm">
-                        RUIDO no se queda en la cuña del día o en el escándalo superficial de Twitter. El objetivo es desarmar la noticia usando sociología estructural y materialismo histórico para explicar por qué pasan las cosas y quién tiene realmente el poder.
-                    </p>
-                </article>
-
-                <!-- Tarjeta 2 -->
-                <article class="bg-ruido-card p-8 border border-zinc-800 hover:border-ruido-pink group transition-colors duration-300 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-ruido-pink/10 rounded-bl-full group-hover:bg-ruido-pink/20 transition-colors"></div>
-                    <div class="text-ruido-pink font-mono text-sm mb-6 font-bold tracking-widest">02 // LENGUAJE</div>
-                    <h3 class="text-2xl font-bold mb-4">Directo y Despojado</h3>
-                    <p class="text-gray-400 leading-relaxed font-mono text-sm">
-                        Explicar conceptos densos (como la <span class="text-white bg-ruido-pink/20 px-1">himpathy</span> en casos de abusos de poder político o la desigualdad de clases) con una prosa limpia, directa y al grano. Cero lenguaje académico aburrido, pero 100% de rigor periodístico.
-                    </p>
-                </article>
-
-                <!-- Tarjeta 3 -->
-                <article class="bg-ruido-card p-8 border border-zinc-800 hover:border-white group transition-colors duration-300 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-bl-full group-hover:bg-white/10 transition-colors"></div>
-                    <div class="text-white font-mono text-sm mb-6 font-bold tracking-widest">03 // POSTURA</div>
-                    <h3 class="text-2xl font-bold mb-4">Inamovible</h3>
-                    <p class="text-gray-400 leading-relaxed font-mono text-sm">
-                        RUIDO es <em class="text-white font-bold not-italic border-b-2 border-ruido-green">unapologetic</em>. No busca complacer a todos ni mantener una falsa neutralidad. Es un medio que fiscaliza y expone el sistema de frente.
-                    </p>
-                </article>
-            </div>
-        </div>
-    </section>
 
     <!-- Sección Cita / Testimonial -->
     <section id="enfoque" class="py-32 bg-ruido-green text-ruido-dark">
@@ -179,39 +143,5 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script>
-  // 1. Dile a JS el nombre EXACTO del archivo que creó Sveltia (revisa en tu GitHub cómo se llama)
-  // Por lo general tienen fechas al inicio, por ejemplo: "noticias/2026-07-14-primer-despacho.md"
-  const rutaDelArchivo = "https://raw.githubusercontent.com/danielaveas/ruido.cl/refs/heads/main/noticias/himpathy-el-deporte-nacional-de-proteger-al-poder.md";
-  // 2. El mensajero va a buscar el archivo
-  fetch(rutaDelArchivo)
-    fetch(rutaDelArchivo)
-  .then(respuesta => respuesta.text())
-  .then(textoCrudo => {
-    
-    // 1. La Tijera Virtual: Cortamos el texto cada vez que haya '---'
-    const partes = textoCrudo.split('---');
-    
-    // 2. Verificamos que el corte haya funcionado (separando frontmatter del texto)
-    if (partes.length >= 3) {
-      
-      // partes[1] contiene los datos técnicos (los ignoramos visualmente por ahora)
-      // partes[2] contiene tu reportaje real. Lo guardamos:
-      const textoMarkdown = partes.slice(2).join('---'); 
-      
-      // 3. El traductor hace su magia solo con el reportaje limpio
-      const htmlListo = marked.parse(textoMarkdown);
-      
-      // 4. Inyectamos el texto limpio en tu vitrina
-      document.getElementById("noticia-principal").innerHTML = htmlListo;
-      
-    } else {
-      console.log("El archivo no tiene el formato esperado.");
-    }
-    
-  })
-  .catch(error => console.log("Ups, no se encontró la noticia:", error));
-</script>
 </body>
 </html>
