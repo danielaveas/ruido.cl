@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiénes Somos | RUIDO.cl</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuración del Tema de RUIDO -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ruido: {
+                            green: '#8bce00', 
+                            dark: '#050505',
+                            card: '#111111',
+                            pink: '#ff00ff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Space Grotesk"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Tu archivo CSS con los efectos Glitch/Grid -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-ruido-dark text-gray-200 font-sans antialiased overflow-x-hidden selection:bg-ruido-green selection:text-black grid-bg">
+
+    <!-- Navegación Brutalista -->
+    <header class="w-full top-0 z-50 bg-ruido-dark/90 backdrop-blur-md border-b-2 border-ruido-green">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="text-3xl font-black font-mono tracking-tighter text-white">
+                RUIDO<span class="text-ruido-green">.cl</span>
+            </div>
+            <nav class="flex gap-6 md:gap-8 font-mono text-xs md:text-sm uppercase tracking-widest font-bold">
+                <a href="index.html" class="text-gray-400 hover:text-ruido-green transition-colors">Inicio</a>
+                <a href="disenos.html" class="text-gray-400 hover:text-ruido-pink transition-colors">Mis Diseños</a>
+                <a href="quienes-somos.html" class="text-ruido-green border-b-2 border-ruido-green pb-1">Quiénes Somos</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-5xl mx-auto px-6 py-24">
+        
+        <!-- Encabezado -->
+        <div class="mb-20">
+            <div class="inline-block mb-4 px-3 py-1 border border-ruido-pink text-ruido-pink font-mono text-xs font-bold uppercase tracking-widest animate-pulse">
+                Identidad / Motor
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-tight mb-6">
+                El <span class="text-ruido-green">Cerebro</span><br>
+                <span class="text-outline">Detrás del Ruido</span>
+            </h1>
+        </div>
+
+        <!-- Secciones de Perfil -->
+        <div class="space-y-16">
+            
+            <!-- Bloque 1: El Periodismo y el Análisis -->
+            <section class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="md:w-1/3">
+                    <h2 class="text-2xl font-mono text-ruido-green font-bold tracking-widest uppercase border-l-4 border-ruido-green pl-4">
+                        01. El Fondo Analítico
+                    </h2>
+                </div>
+                <div class="md:w-2/3 bg-ruido-card p-8 border border-zinc-800">
+                    <p class="text-lg text-gray-300 font-sans leading-relaxed mb-4">
+                        RUIDO nace de la intersección entre el rigor académico del periodismo y una profunda devoción por la teoría crítica. Aquí no hay lecturas superficiales. 
+                    </p>
+                    <p class="text-gray-400 font-mono text-sm leading-relaxed">
+                        El motor intelectual del proyecto se basa en la comprensión de la historia desde el <strong class="text-white font-normal">materialismo histórico</strong> y la sociología estructural. Analizamos el ecosistema político desarmando conceptos densos —como las dinámicas de poder sistémico o la <strong class="text-ruido-pink font-normal">himpathy</strong>— y los traducimos a un lenguaje despojado, incisivo y directo, alejándonos de la academia aburrida sin perder ni un gramo de profundidad.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Bloque 2: La Estrategia y el Diseño -->
+            <section class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="md:w-1/3">
+                    <h2 class="text-2xl font-mono text-ruido-pink font-bold tracking-widest uppercase border-l-4 border-ruido-pink pl-4">
+                        02. La Forma Visual
+                    </h2>
+                </div>
+                <div class="md:w-2/3 bg-ruido-card p-8 border border-zinc-800">
+                    <p class="text-lg text-gray-300 font-sans leading-relaxed mb-4">
+                        La política no es solo texto; es materialidad y es estética. 
+                    </p>
+                    <p class="text-gray-400 font-mono text-sm leading-relaxed">
+                        No basta con escribir bien si el mensaje se pierde en el algoritmo. Detrás de RUIDO hay horas de <strong class="text-white font-normal">planificación de contenidos, diagramación y diseño gráfico</strong>. Trasladamos la experiencia de organizar grillas, curar líneas visuales y mantener una curatoría impecable en redes sociales hacia el periodismo político. Cada publicación, cada carrusel y cada color neón está fríamente calculado para atrapar la atención y luego golpear con la teoría.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Bloque 3: La Infraestructura Técnica -->
+            <section class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="md:w-1/3">
+                    <h2 class="text-2xl font-mono text-white font-bold tracking-widest uppercase border-l-4 border-white pl-4">
+                        03. Código Independiente
+                    </h2>
+                </div>
+                <div class="md:w-2/3 bg-ruido-card p-8 border border-zinc-800">
+                    <p class="text-lg text-gray-300 font-sans leading-relaxed mb-4">
+                        El sistema no se expone usando plataformas prestadas.
+                    </p>
+                    <p class="text-gray-400 font-mono text-sm leading-relaxed">
+                        Para asegurar una independencia total y un rendimiento que rompa con las webs de noticias tradicionales, RUIDO es empujado por un dominio técnico avanzado. Construimos nuestro propio ecosistema desarrollando interfaces fluidas y rápidas (SPAs) utilizando tecnologías como <strong class="text-ruido-green font-normal">React, Tailwind CSS y arquitecturas basadas en Firebase</strong>. Somos creadores de contenido, estrategas y <em>full-stack</em> en un solo bloque.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer Simple -->
+    <footer class="mt-20 py-8 border-t border-zinc-900 bg-ruido-dark text-center">
+        <p class="text-gray-600 font-mono text-xs uppercase tracking-widest">&copy; 2026 RUIDO.cl. Sistema expuesto.</p>
+    </footer>
+
+</body>
+</html>

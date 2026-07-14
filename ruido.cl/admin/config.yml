@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: danielaveas/ruido.cl
+  branch: main
+
+# Aquí le decimos dónde guardar las fotos de las noticias
+media_folder: "imagenes"
+public_folder: "/imagenes"
+
+# Esta es tu pauta editorial
+collections:
+  - name: "articulos"
+    label: "Artículos y Reportajes"
+    folder: "noticias"
+    create: true
+    fields:
+      - {label: "Titular", name: "title", widget: "string"}
+      - {label: "Fecha de Publicación", name: "date", widget: "datetime"}
+      - {label: "Fotografía Principal", name: "thumbnail", widget: "image", required: false}
+      - {label: "Cuerpo del Texto", name: "body", widget: "markdown"}
