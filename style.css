@@ -6,41 +6,6 @@
    BARRA DE NAVEGACIÓN PRINCIPAL
    ========================================= */
 
-.navegacion-principal {
-  display: flex;
-  justify-content: space-between; /* Separa el logo de los links */
-  align-items: center;
-  border-bottom: 3px solid #333;
-  padding: 20px 40px;
-  background-color: #050505;
-  margin-bottom: 40px;
-}
-
-.navegacion-principal a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  padding: 10px 15px;
-  transition: all 0.2s ease;
-}
-
-/* El estado de la página actual y el hover */
-.navegacion-principal a.activo, 
-.navegacion-principal a:hover {
-  background-color: #00ff00;
-  color: #000000;
-}
-
-/* Agrupando los links de la derecha */
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-
 
    /* 1. Importación de Fuentes (Space Grotesk y JetBrains Mono) */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@400;600;700&display=swap');
@@ -336,4 +301,184 @@ a {
 
 #noticia-principal strong {
   color: #00ff00;
+}
+
+/* =========================================
+   ESTILOS GENERALES Y MENÚ DE NAVEGACIÓN
+   ========================================= */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #050505; /* Negro absoluto */
+  color: #ffffff; /* Texto blanco puro */
+  /* Tipografía sans-serif ultra moderna y súper legible en cualquier pantalla */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Menú de navegación visible y sólido */
+.navegacion-principal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #1a1a1a;
+  padding: 25px 5%;
+  background-color: #000000;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.navegacion-principal .logo {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #00ff00; /* Verde neón */
+  text-decoration: none;
+  letter-spacing: -1px;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-links a.activo,
+.nav-links a:hover {
+  background-color: #00ff00;
+  color: #000000;
+  border-color: #00ff00;
+}
+
+/* =========================================
+   ESTILOS SECCIÓN CONCEPTOS
+   ========================================= */
+.contenedor-seccion {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.titulo-seccion {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+
+.indice-editorial {
+  display: flex;
+  flex-direction: column;
+  border-top: 3px solid #1a1a1a;
+}
+
+.item-noticia {
+  display: grid;
+  grid-template-columns: 120px 1fr 50px;
+  align-items: center;
+  padding: 2.5rem 0;
+  border-bottom: 3px solid #1a1a1a;
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fecha-item {
+  font-family: monospace;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.titular-item {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.flecha {
+  font-size: 1.8rem;
+  text-align: right;
+  color: #00ff00;
+  opacity: 0;
+  transform: translateX(-15px);
+  transition: all 0.3s ease;
+}
+
+.item-noticia:hover {
+  background-color: #111;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.item-noticia:hover .titular-item {
+  color: #00ff00;
+}
+
+.item-noticia:hover .flecha {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* =========================================
+   DISEÑO EXCLUSIVO PARA LA LECTURA DEL ARTÍCULO
+   ========================================= */
+.contenedor-lectura {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+/* Contenedor del artículo inyectado */
+#noticia-principal {
+  margin-top: 2rem;
+}
+
+/* Imagen destacada del artículo */
+.articulo-imagen {
+  width: 100%;
+  max-height: 450px;
+  object-fit: cover;
+  border: 3px solid #1a1a1a;
+  margin-bottom: 3rem;
+}
+
+/* Título dinámico (Titular) */
+.articulo-titulo {
+  color: #00ff00; /* Verde neón brutalista */
+  font-size: 3.2rem;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+  letter-spacing: -1px;
+}
+
+/* Cuerpo de la noticia (Estilo revista) */
+#noticia-principal p {
+  font-size: 1.25rem; /* Tamaño óptimo para lectura */
+  line-height: 1.8; /* Espaciado entre líneas para descanso visual */
+  color: #f0f0f0; /* Blanco suave, no encandila */
+  margin-bottom: 2rem;
+}
+
+#noticia-principal h2 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 10px;
+}
+
+#noticia-principal strong {
+  color: #00ff00; /* Las palabras destacadas brillan en verde */
 }

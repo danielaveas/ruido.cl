@@ -4,130 +4,106 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lectura | RUIDO</title>
-  <style>
-    body {
-      background-color: #050505;
-      color: #e0e0e0;
-      font-family: 'Courier New', Courier, monospace;
-      margin: 0;
-      padding: 50px 20px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* Botón para volver */
-    .volver {
-      display: inline-block;
-      color: #00ff00;
-      text-decoration: none;
-      border: 2px solid #00ff00;
-      padding: 10px 20px;
-      margin-bottom: 40px;
-      text-transform: uppercase;
-      font-weight: bold;
-      transition: all 0.2s;
-    }
-
-    .volver:hover {
-      background-color: #00ff00;
-      color: #000000;
-    }
-
-    /* Contenedor del artículo */
-    #noticia-principal {
-      border: 3px solid #222;
-      padding: 40px;
-      background-color: #0a0a0a;
-    }
-
-    /* Traduciendo el Markdown a estilos brutales */
-    #noticia-principal h1 {
-      color: #00ff00;
-      font-size: 2.5rem;
-      text-transform: uppercase;
-      margin-top: 0;
-      margin-bottom: 25px;
-      line-height: 1.1;
-      letter-spacing: -1px;
-    }
-
-    #noticia-principal h2 {
-      color: #ffffff;
-      font-size: 1.6rem;
-      text-transform: uppercase;
-      border-bottom: 2px solid #00ff00;
-      padding-bottom: 5px;
-      margin-top: 40px;
-      margin-bottom: 20px;
-    }
-
-    #noticia-principal p {
-      font-size: 1.15rem;
-      line-height: 1.7;
-      color: #cccccc;
-      margin-bottom: 20px;
-    }
-
-    /* Las negritas se tiñen de verde flúor automáticamente */
-    #noticia-principal strong {
-      color: #00ff00; 
-    }
-
-    #noticia-principal hr {
-      border: 0;
-      border-top: 3px double #333;
-      margin: 40px 0;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <a href="conceptos.html" class="volver">← Volver a Conceptos</a>
+  <nav class="navegacion-principal">
+    <a href="index.html" class="logo">RUIDO</a>
+    <div class="nav-links">
+      <a href="conceptos.html" class="activo">Conceptos</a>
+    </div>
+  </nav>
 
-  <div id="noticia-principal">
-    <h2>Cargando artículo...</h2>
-  </div>
+  <main class="contenedor-lectura">
+    <article id="noticia-principal">
+      <h2 style="color: #00ff00; font-family: monospace;">Estableciendo conexión editorial...</h2>
+    </article>
+  </main>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   
   <script>
+    const contenedor = document.getElementById("noticia-principal");
     const parametros = new URLSearchParams(window.location.search);
     const nombreDelArchivo = parametros.get("archivo");
 
-    if (nombreDelArchivo) {
+    if (!nombreDelArchivo) {
+      contenedor.innerHTML = "<h2 style='color: red;'>Error: No se ha seleccionado ningún artículo.</h2>";
+    } else {
       const rutaDelArchivo = "https://raw.githubusercontent.com/danielaveas/ruido.cl/main/noticias/" + nombreDelArchivo;
 
       fetch(rutaDelArchivo)
         .then(respuesta => {
           if (!respuesta.ok) {
-            throw new Error("No se encontró el archivo en GitHub.");
+            throw new Error("El archivo no se encuentra en el servidor.");
           }
           return respuesta.text();
         })
         .then(textoCrudo => {
-          // Recortamos los metadatos técnicos (frontmatter)
-          const partes = textoCrudo.split('---');
-          if (partes.length >= 3) {
-            const textoMarkdown = partes.slice(2).join('---'); 
-            const htmlListo = marked.parse(textoMarkdown);
-            document.getElementById("noticia-principal").innerHTML = htmlListo;
-          } else {
-            const htmlListo = marked.parse(textoCrudo);
-            document.getElementById("noticia-principal").innerHTML = htmlListo;
+          let titular = "Artículo sin título";
+          let imagenRuta = "";
+          let cuerpoMarkdown = textoCrudo;
+
+          // Si el archivo tiene metadatos (Frontmatter) entre '---'
+          if (textoCrudo.startsWith('---')) {
+            const partes = textoCrudo.split('---');
+            if (partes.length >= 3) {
+              const metadatos = partes[1];
+              cuerpoMarkdown = partes.slice(2).join('---');
+
+              // Procesamos los metadatos línea por línea
+              const lineas = metadatos.split('\n');
+              lineas.forEach(linea => {
+                const par = linea.trim();
+                
+                // Extraemos el Titular
+                if (par.startsWith('title:')) {
+                  titular = par.replace(/^title:\s*/, '').replace(/^['"]|['"]$/g, '');
+                }
+                
+                // Extraemos la Imagen
+                if (par.startsWith('thumbnail:')) {
+                  imagenRuta = par.replace(/^thumbnail:\s*/, '').replace(/^['"]|['"]$/g, '');
+                  
+                  // Si la ruta viene absoluta de Sveltia (ej: /imagenes/foto.webp)
+                  // le quitamos la barra inicial para que lea la carpeta relativa de GitHub Pages
+                  if (imagenRuta.startsWith('/')) {
+                    imagenRuta = imagenRuta.substring(1);
+                  }
+                }
+              });
+            }
           }
+
+          // Traducimos el Markdown del cuerpo a HTML
+          const cuerpoHTML = marked.parse(cuerpoMarkdown);
+
+          // Construimos la estructura visual brutalista
+          let renderFinal = "";
+
+          // 1. Si hay imagen, la ponemos arriba como banner destacado
+          if (imagenRuta) {
+            renderFinal += `<img src="${imagenRuta}" class="articulo-imagen" alt="${titular}">`;
+          }
+
+          // 2. Colocamos el Titular en gigante
+          renderFinal += `<h1 class="articulo-titulo">${titular}</h1>`;
+
+          // 3. Inyectamos el texto de la noticia traducido
+          renderFinal += cuerpoHTML;
+
+          // Pintamos todo en pantalla
+          contenedor.innerHTML = renderFinal;
         })
         .catch(error => {
-          document.getElementById("noticia-principal").innerHTML = `
-            <h2 style="color: #ff0055;">ERROR 404</h2>
-            <p>No logramos recuperar el artículo desde GitHub.</p>
-            <p style="font-size: 0.9rem; color: #666;">Código: ${error.message}</p>
+          contenedor.innerHTML = `
+            <h1 style="color: red; font-size: 2.5rem;">ERROR DE CARGA</h1>
+            <p>No pudimos rescatar el artículo de la base de datos.</p>
+            <p style="font-family: monospace; color: #666;">Código: ${error.message}</p>
           `;
         });
-    } else {
-      document.getElementById("noticia-principal").innerHTML = "<h2>No se seleccionó ningún artículo.</h2>";
     }
   </script>
-
 </body>
 </html>
